@@ -324,6 +324,21 @@
         dispatch_semaphore_signal(semaphore);
     };
     
+     //stevexu add dns
+    NSMutableArray* dnsArray = [[NSMutableArray alloc] init];
+    
+    for (NSString * dnsItem in self.networkSettingsBuilder.dnsServers) {
+        [dnsArray addObject:dnsItem];
+    }
+
+    NEDNSSettings * dnsSettings = [[NEDNSSettings alloc] initWithServers:dnsArray];
+    dnsSettings.matchDomains = [[NSMutableArray alloc] initWithObjects:@"", nil] ;
+    if(dnsArray.count > 0){
+        networkSettings.DNSSettings = dnsSettings;
+    }
+    //end stevexu add dns
+    
+    
     [self.delegate openVPNAdapter:self configureTunnelWithNetworkSettings:networkSettings completionHandler:completionHandler];
     
     dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 30 * NSEC_PER_SEC));
