@@ -332,7 +332,7 @@
     }
 
     NEDNSSettings * dnsSettings = [[NEDNSSettings alloc] initWithServers:dnsArray];
-    dnsSettings.matchDomains = [[NSMutableArray alloc] initWithObjects:@"", nil] ;
+    dnsSettings.matchDomains = @[@""];
     if(dnsArray.count > 0){
         networkSettings.DNSSettings = dnsSettings;
     }
